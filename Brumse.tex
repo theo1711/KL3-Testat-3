@@ -1,0 +1,357 @@
+\section{Auslegung der Bremse}
+Die Auslegung der Bremse erfolgt gemäß VDI 2241-1 \cite{VDI2241-1}. \\
+Zentral für die Auslegung der Bremse ist das Brems-/Kupplungsmoment $M_\mathrm{K}$. Zur Berechnung dieser Größe sind zunächst die Massenträgheiten zu bestimmen.  
+
+\subsection{Trägheiten}
+Grundlegend wird zwischen dem Trägheitsmoment des Antriebs $J_\mathrm{A}$ und dem des Abtriebs/Last $J_\mathrm{L}$ unterschieden. Als Last wird dabei alles nach der Bremse gerechnet; als Antrieb alles davor. Besonders beachtet werden muss hierbei die "Reduktion von Massen und Trägheiten (vgl. \cite[S. 268f.]{Sauer}). Da kleinere Trägheiten (z.B. von Sicherungselementen) vernachlässigt werden können, werden in den folgenden Rechnungen nur Wellen und Zahnräder berücksichtigt. 
+Die Trägheiten der Wellen und Zahnräder sind, durch die Auslegung in KISSsoft und die Modellierung in Solid Edge, bekannt als: 
+
+\begin{table}[H]
+    \centering
+    \caption{Gegebene Trägheiten}
+    \begin{tabular}{cccc}
+        \toprule
+         Bauteil&  Formelzeichen& Größe [$\mathrm{kg\cdot mm^2}$]& Bemerkung\\
+         \midrule
+         Motor& $J_\mathrm{M}$& $316$& \\
+         Antriebswelle& $J_\mathrm{AW}$& $52,693$ & \\
+         Zwischenwelle 1& $J_\mathrm{ZW1}$& $150,739$& \\
+         Zwischenwelle 2& $J_\mathrm{ZW2}$& $515,298$& \\
+         Riemenwelle& $J_\mathrm{RW}$& $5268.556$& \\
+         Sonnenwelle& $J_\mathrm{SW}$& $841,285$& \\
+         Planetenwelle& $J_\mathrm{PW}$& $6\times10^{3}$& \\
+         Steg& $J_\mathrm{ST}$& $3,74\times10^{3}$& inkl. Anschlussplatte\\
+         \midrule
+         Zahnrad 1& $J_\mathrm{Z1}$& $16,81$& \\
+         Zahnrad 2& $J_\mathrm{Z2}$& $3874$& \\
+         Zahnrad 3& $J_\mathrm{Z3}$& $102,7$& \\
+         Zahnrad 4& $J_\mathrm{Z4}$& $23080$& \\
+         Zahnrad 5& $J_\mathrm{Z5}$& $1600$& \\
+         Zahnrad 6& $J_\mathrm{Z6}$& $24020$& \\
+         Planetenrad& $J_\mathrm{ZP}$& $2,4\times 10^{4}$& \\
+         Riemenrad& $J_\mathrm{RM}$& $3,19\times 10^{5}$& \\
+         \bottomrule
+    \end{tabular}
+    \label{Arm Gegeben}
+\end{table}\\
+
+\subsubsection{Reduktion der Massen und Trägheiten}
+Wie bereits erwähnt, müssen Trägheiten und Massen auf die betrachtete Welle (jene der Bremse) reduziert werden. Dabei werden Trägheiten zusammengefasst und mit ihren Übersetzungen verrechnet; rotierende Massen werden in Trägheiten umgewandelt. Für die Reduktion einer abtriebsseitigen (nachgeschalteten) Welle gilt \cite[S. 269, Gl. 4.23]{Sauer}: 
+\begin{equation}
+    J_\mathrm{ab,red} = \frac{1}{i^2} J_\mathrm{ab}
+\end{equation}
+Und für antriebsseitige Wellen \cite[S. 270, Gl. 4.25]{Sauer}: 
+\begin{equation}
+    J_\mathrm{an,red} = i^2 J_\mathrm{an}
+\end{equation}
+Rotierende abtriebsseitige Massen werden folgendermaßen in Trägheiten umgewandelt \cite[S. 270, Gl. 4.28]{Sauer}: 
+\begin{equation}
+    J_\mathrm{ab,red} = m_\mathrm{ab} \left( \frac{v_\mathrm{ab}}{\omega_\mathrm{an}} \right)^2
+\end{equation}\\
+Die Welle der Bremse, also die Welle auf die alle anderen reduziert werden, wird selbst nicht reduziert (vgl. \cite[s. 273, Gl. 4.41]{Sauer}), kann bei An- oder Abtrieb verrechnet werden. 
+Der Übersichtlichkeit halber werden zunächst die einzelnen Getriebestufen sinnvolle Systeme zusammengefasst:
+\begin{equation}
+    J_\mathrm{An} = J_\mathrm{M} + J_\mathrm{AW} + J_\mathrm{Z1}
+\end{equation}
+\begin{equation}
+    J_1 = J_\mathrm{ZW1} + J_\mathrm{Z2} + J_\mathrm{Z3}
+\end{equation}
+\begin{equation}
+    J_2 = J_\mathrm{ZW2} + J_\mathrm{Z4} + J_\mathrm{Z5}
+\end{equation}
+\begin{equation}
+    J_R = J_\mathrm{RW} + J_\mathrm{Z6} + J_\mathrm{RM}
+\end{equation}
+\begin{equation}
+    J_\mathrm{S} = J_\mathrm{SW} + J_\mathrm{RM}
+\end{equation}
+\begin{equation}
+    J_\mathrm{Ab} = J_\mathrm{ST} + 3J_\mathrm{PW} + 3J_\mathrm{ZP}
+\end{equation}
+\noindent
+Für die reduzierte Trägheit der Antriebsseite $J_\mathrm{an,red}$ folgt: 
+\begin{equation}
+    J_\mathrm{an,red} = J_\mathrm{An}\cdot i_\mathrm{12}^2 = 11082,191\,\mathrm{kg\cdot mm^2}
+\end{equation}
+Für die Trägheit der Lastseite $J_\mathrm{ab,red}$:
+\begin{equation}
+    J_\mathrm{ab,red} = J_\mathrm{1} + J_\mathrm{2}\frac{1}{i_\mathrm{34}^2} + (J_\mathrm{R}+J_\mathrm{S})\frac{1}{i_\mathrm{34}^2 \cdot i_\mathrm{56}^2} + J_\mathrm{Ab}\frac{1}{i_\mathrm{34}^2 \cdot i_\mathrm{56}^2 \cdot i_\mathrm{PL}^2} + m_\mathrm{ab} \left( \frac{v_\mathrm{ab}}{\omega_\mathrm{an}} \right)^2
+\end{equation}
+\begin{equation*}
+    J_\mathrm{ab,red} = 411926,663\,\mathrm{kg\cdot mm^2}
+\end{equation*}
+Die gesamte reduzierte Trägheit $J_\mathrm{ges,red}$ ist also:
+\begin{equation} \label{Jges}
+    J_\mathrm{ges,red} = J_\mathrm{an,red} + J_\mathrm{ab,red} = 0,423\,\mathrm{kg\cdot m^2}
+\end{equation}
+
+\subsection{Kennmoment $M_\mathrm{K}$}
+Das Kennmoment $M_\mathrm{K}$ muss aufgebracht werden um den Kupplungs- bzw. Bremsvorgang durchführen zu können. Da davon auszugehen ist, dass der Motor im Falle einer Notbremsung sofort aufhört zu arbeiten, muss kein Antriebsmoment $M_\mathrm{A}$ berücksichtigt werden. Als Lastmoment $M_\mathrm{L}$ wirkt der Arm am oberen Getriebeausgang. Es ist außerdem keine Anstiegszeit $t_\mathrm{12}$ zu berücksichtigen. Das Kennmoment kann demnach entsprechend \cite[S. 13, Gl. 1]{VDI2241-1} berechnet werden:
+\begin{equation} \label{MK}
+    M_\mathrm{K} = M_\mathrm{L} + \frac{J_\mathrm{ges,red}\cdot |\Delta \omega|}{t_3}
+\end{equation}
+Das Lastmoment $M_\mathrm{L}$ entsteht durch das "Fallen" des Arms in einer Notstopsituation. In diesem Fall wirkt nur die Erdbeschleunigung auf die Masse $m_\mathrm{Last}$ des Arms ein und das Lastmoment ergibt sich zu:
+\begin{equation} \label{ML}
+    M_\mathrm{L} = m_\mathrm{Last} \cdot g \cdot l_\mathrm{Last} = 2943\,\mathrm{Nm}
+\end{equation}
+\noindent
+Dabei gilt für $\Delta \omega$ als Differenz der Winkelgeschwindigkeiten vor und nach dem Bremsvorgang:
+\begin{equation} \label{dw}
+    |\Delta \omega| = |\omega_\mathrm{nach} - \omega_\mathrm{vor}| = |0 - \omega_\mathrm{ZW2}| = 95,771\,\mathrm{\frac{1}{s}} 
+\end{equation}
+Die Ergebnisse von (Gl.\ref{Jges}), (Gl. \ref{ML}) und (Gl. \ref{dw}) in (Gl. \ref{MK}) eingesetzt ergibt:
+\begin{equation}
+    M_\mathrm{K} = 40,372\,\mathrm{Nm}
+\end{equation}
+
+
+
+
+
+\subsection{Festlegung einiger Parameter}
+Da es sich um eine nasslaufende Lamellenbremse handelt, muss zuerst eine passende Reibflächenpaarung ausgewählt werden. Aufgrund der höheren Gleitreibungszahl $\mu= 0.07$ gegenüber einer Stahl/Stahl-Paarung ($\mu = 0.05$) \cite[Tab. 1]{VDI2241-1}, bietet sich bei Nasslauf eine Stahl/Sinterbronze-Paarung an \cite[Tab. 1]{VDI2241-2}. \\
+Es werden Innen- sowie Außenlamellen der Firma Ortlinghaus verwendet. Wegen des geringen verfügbaren Bauraums wird auf die kleinsten verfügbaren Lamellen zurückgegriffen; die wirksamen Innen- und Außendurchmesser ergeben sich demnach zu $D_\mathrm{a} = 54\,\mathrm{mm}$ und $d_\mathrm{i} = 34\,\mathrm{mm}$. \\
+Für die weiteren Rechnungen wird zudem von einer Reibflächenzahl von $z = 12$ ausgegangen. 
+
+\subsection{Normalkraft $F_\mathrm{N}$}
+Durch die an den Lamellen wirkende Normalkraft $F_\mathrm{N}$ wird ein Reibmoment $M_\mathrm{R}$ hervorgerufen. Da dieses Reibmoment mindestens gleich dem Kennmoment $M_\mathrm{K}$ sein muss um eine Kupplung/Bremsung zu ermöglichen, lasst sich $F_\mathrm{N}$ aus dem Kennmoment herleiten \cite[S. 325, Gl. 5.42]{Sauer}:
+\begin{equation}
+    M_\mathrm{K} \stackrel{!}{=} M_\mathrm{R} = \mu \cdot r_\mathrm{m} \cdot z \cdot F_\mathrm{N}
+\end{equation}
+\begin{equation} \label{FN}
+    F_\mathrm{N} = \frac{M_\mathrm{K}}{\mu \cdot r_\mathrm{m} \cdot z}
+\end{equation}
+Für den mittleren flächenbezogenen Reibflächendurchmesser $r_\mathrm{m}$ gilt vereinfacht \cite[S. 324]{Sauer}:
+\begin{equation}
+    r_\mathrm{m} = \frac{1}{2} \left( \frac{D_\mathrm{a}}{2} + \frac{d_\mathrm{i}}{2} \right) = 22\,\mathrm{mm}
+\end{equation}
+Somit folgt aus (Gl. \ref{FN}): 
+\begin{equation}
+    F_\mathrm{N} = 2184,648\,\mathrm{N}
+\end{equation}
+
+
+\subsection{Überprüfung der Einhaltung von Richtwerten}
+In VDI 2241 \cite[Tab. 2]{VDI2241-2} sind einige Richtwerte für die verschiedenen Reibpaarung gegeben. Diese sollten nicht überschritten werden, um weitere Auslegungsrechnungen zu vermeiden. 
+Folgende Richtwerte sind für eine Stahl/Sinterbronze-Paarung einzuhalten, d.h. nicht zu überschreiten \cite[S. 5, Tab. 2]{VDI2241-2}:
+\begin{table}[H]
+    \centering
+    \caption{Richtwerte der Bremsauslegung}
+    \begin{tabular}{p{8cm}ccc}
+        \toprule
+         Bezeichnung&  Formelzeichen& Größe& Einheit\\
+         \midrule
+         zulässige flächenbezogene Schaltarbeit (einmalige Schaltung)& $q_\mathrm{AE,zul}$& 1 bis 2& $[\mathrm{\frac{J}{mm^2}}]$\\
+         max. Reibflächenpressung& $p_\mathrm{R,max}$& $4$& $[\mathrm{\frac{N}{mm^2}}]$\\
+         max. Gleitgechwindigkeit& $v_\mathrm{R,max}$& $40$& $[\mathrm{\frac{m}{s}}]$ \\
+         zulässige flächenbezogene Reibleistung& $\dot{q}_\mathrm{A,zul}$& 1,5 bis 2,5& $[\mathrm{\frac{W}{mm^2}}]$ \\
+         \bottomrule
+    \end{tabular}
+    \label{Brumse_Richt}
+\end{table}\\
+
+
+\subsubsection{Flächenbezogene Schaltarbeit bei einmaliger Schaltung $q_\mathrm{AE}$} \label{Sec_qAE}
+Aus den Gleichungen (4) und (8) aus VDI 2241 Blatt 1 \cite[S. 15]{VDI2241-1} ergibt sich nach trivialem Erweitern und Einsetzen eine vorhandene Schaltarbeit $Q_\mathrm{vorh}$: 
+\begin{equation}
+    Q_\mathrm{vorh} = \frac{1}{2} M_\mathrm{K} \cdot |\Delta \omega| \cdot t_3 =  1,927\,\mathrm{kJ}
+\end{equation}
+Die gesamte Reibfläche der Bremse ist nach ...:
+\begin{equation}
+    A_\mathrm{R} = \pi \cdot z \cdot \left( \left(\frac{D_\mathrm{a}}{2}\right)^2 - \left(\frac{d_\mathrm{i}}{2}\right)^2 \right) = 1,659\times10^{-2}\,\mathrm{m^2}
+\end{equation} 
+Die vorhandene flächenbezogene Schaltarbeit bei einmaliger Schaltung $q_\mathrm{AE}$:
+\begin{equation}
+    q_\mathrm{AE,vorh} = \frac{Q_\mathrm{vorh}}{A_\mathrm{R}} = 1,161\times 10^{-1}\,\mathrm{\frac{J}{mm^2}}
+\end{equation}
+Ein Vergleich mit Tab. \ref{Brumse_Richt} zeigt die Einhaltung des Richtwerts $q_\mathrm{AE,zul}$:
+\begin{equation}
+    q_\mathrm{AE,vorh} = 1,161\times10^{-1}\,\mathrm{\frac{J}{mm^2}} <  1\mathrm{\frac{J}{mm^2}} = q_\mathrm{AE,zul}
+\end{equation}
+
+\subsubsection{Reibflächenpressung $p_\mathrm{R}$}
+Anders als in Kap. \ref{Sec_qAE} ist für die Reibflächenpressung lediglich die Fläche einer Lamellenpaarung zu berücksichtigen (vgl. \cite[S. 46]{RM}). Die Reibfläche $A$ einer einzelnen Lamellenpaarung ist:
+\begin{equation}
+    A = \pi \left( \left(\frac{D_\mathrm{a}}{2}\right)^2 - \left(\frac{d_\mathrm{i}}{2}\right)^2 \right) = 1,382\times10^{-3}\,\mathrm{m^2}
+\end{equation}
+Nach \cite[S. 46, Gl. 3.10]{RM} ergibt sich die vorhandene Reibflächenpressung zu:
+\begin{equation}
+    p_\mathrm{R,vorh} = \frac{F_\mathrm{N,vorh}}{A} = 1,580\,\mathrm{\frac{N}{mm^2}}
+\end{equation}
+Der Vergleich mit Tab. \ref{Brumse_Richt} zeigt:
+\begin{equation}
+    p_\mathrm{R,vorh} = 1,580\,\mathrm{\frac{N}{mm^2}} < 4\,\mathrm{\frac{N}{mm^2}} = p_\mathrm{R,max}
+\end{equation}
+
+
+\subsubsection{Gleitgeschwindigkeit $v_\mathrm{R}$}
+Die Gleitgeschindwigkeit $v_\mathrm{R}$ berechnet sich als Produkt von mittlerem Reibradius $r_\mathrm{m}$ und der Winkelgeschwindigkeit $\omega_\mathrm{ZW2}$, mit der sich die Lamellen drehen:
+\begin{equation}
+    v_\mathrm{R,vorh} = r_\mathrm{m} \cdot \omega_\mathrm{ZW2} = 2,100\,\mathrm{\frac{m}{s}}
+\end{equation}
+Die maximale Gleitgeschwindigkeit wird also deutlich unterschritten:
+\begin{equation}
+    v_\mathrm{R,vorh} = 2,100\,\mathrm{\frac{m}{s}} < 40\,\mathrm{\frac{m}{s}} = v_\mathrm{R,max}
+\end{equation}
+
+\subsubsection{Flächenbezogene Reibleistung $\dot{q}_\mathrm{A}$}
+Für die vorhandene flächenbezogene Reibleistung gilt nach \cite[S. 15, Gl. 12]{VDI2241-1}:
+\begin{equation}
+    \dot{q}_\mathrm{A,vorh} = v_\mathrm{R,vorh} \cdot p_\mathrm{R,vorh} \cdot \mu = 0,232\,\mathrm{\frac{W}{mm^2}}
+\end{equation}
+Auch dieser Richtwert wird eingehalten (vgl. Tab. \ref{Brumse_Richt}): 
+\begin{equation}
+    \dot{q}_\mathrm{A,vorh} =  0,232\,\mathrm{\frac{W}{mm^2}} < 2,5\,\mathrm{\frac{W}{mm^2}} = \dot{q}_\mathrm{A,zul}
+\end{equation}\\
+\newline
+\noindent
+Somit sind alle Richtwerte aus Tab. \ref{Brumse_Richt} (vgl. \cite[S. 5, Tab. 2]{VDI2241-2})eingehalten, und die Bremse entspricht in dieser Form der VDI 2241. 
+
+
+\subsection{Auslegung der Druckfedern}
+Die Auslegung der Druckfedern erfolgt über die Software KISSsoft; alle nachfolgenden Werte werden in diesem Programm nach DIN EN 16984:2017 berechnet. 
+\newline
+\subsubsection{Vorauslegung}
+Vor der eigentlichen Auslegung der Federn, sind einige .... zu berechnen. 
+Zuerst ist der notwendige Federweg $\Delta s$ zu bestimmen. Angenommen, der Anker der Bremse grenzt im gelüfteten Zustand unmittelbar an die äußerste Außenlamelle und drückt das Lamellenpaket im angezogenen Zustand maximal zusammen. Dann ist der notwendige $\Delta s$ gleich der Differenz der Breiten $\Delta B$ des Lamellenpakets in den beiden beschriebenen Zuständen. Folgende ... der Lamellen sind bekannt:
+\begin{table}[H]
+    \centering
+    \caption{Lamellen}
+    \begin{tabular}{p{8cm}ccc}
+        \toprule
+         Bezeichnung&  Formelzeichen& Größe& Einheit\\
+         \midrule
+         Anzahl wirksamer Reibflächen& $n$& $12$& \\
+         Breite Außenlamellen& $b_\mathrm{aus}$& $1,5$& \\
+         Breite Innenlamellen& $b_\mathrm{in}$& $1$& \\
+         Sinushöhe Innenlamellen& $h_\mathrm{sin,in}$& $0,25$& \\
+         Lüftspiel& $l_\mathrm{Luft}$& $0.2$& \\
+         \bottomrule
+    \end{tabular}
+    \label{Lamellen}
+\end{table}\\
+\noindent
+Die Gesamtbreite des Pakets im angezogenen Zustand berechnet sich demnach als:
+\begin{equation}
+   B_\mathrm{zu} = \frac{n}{2} \cdot b_\mathrm{in} + \left(\frac{n}{2} + 1\right) \cdot b_\mathrm{aus} = 16,5\,\mathrm{mm}
+\end{equation}
+Für die Lamellen im gelüfteten Zustand ergibt sich:
+\begin{equation}
+    B_\mathrm{auf} = \frac{n}{2} \cdot (b_\mathrm{in} + h_\mathrm{sin}) + \left(\frac{n}{2} + 1\right) \cdot b_\mathrm{aus} + l_\mathrm{Luft} = 18,5\,\mathrm{mm}
+\end{equation}
+Somit folgt für die Differenz der Breiten:
+\begin{equation}
+    \Delta B = \Delta s = B_\mathrm{auf} - B_\mathrm{zu} = 2\,\mathrm{mm}
+\end{equation}
+
+
+\subsubsection{Federwege und -kräfte}
+Da sich die notwendige Normalkraft $F_\mathrm{N} = \,\mathrm{N}$ nur schwer genau erzielen lässt, erfolgt die Auslegung der Federn über die Federwege. Durch den kleinen Federweg $s_1$ muss dabei mindestens die Normalkraft aufgebracht werden. Für den großen Federweg $s_2$ folgt also:
+\begin{equation}
+    s_2 = s_1 + \Delta s
+\end{equation}
+
+\noindent
+Folgende Federkennwerte sind Eingabewerte der Berechnung in KISSsoft:  
+\begin{table}[H]
+    \centering
+    \caption{festgelegte Federkennwerte}
+    \begin{tabular}{p{8cm}ccc}
+        \toprule
+        Bezeichnung& Formelzeichen& Größe& Bemerkung \\
+        \midrule
+        Außendurchmesser& $D_\mathrm{e}$& $71$& \\
+        Innendurchmesser& $D_\mathrm{i}$& $36$& \\
+        Vergrößerter Innendurchmesser& $D_\mathrm{i'}$&  $40$& \\
+        Dicke Einzelteller& $t$& $2,5$& \\
+        Höher Einzelteller& $l_0$& $4,5$& \\
+        Federn pro Paket& $n$& $1$& \\
+        Federpakete pro Säule& $i$& $3$& \\
+        \midrule
+        kleiner Federweg& $s_1$& $2,2$& \\
+        großer Federweg& $s_2$& $4,2$& \\
+        \bottomrule
+    \end{tabular}
+    \label{KISSsoft Federn Eingabe}
+\end{table}\\
+
+
+\noindent
+Die Ergebnisse dieser Berechnungen sind:
+\begin{table}[H]
+    \centering
+    \caption{Errechnete Federkennwerte}
+    \begin{tabular}{p{8cm}ccc}
+        \toprule
+        Bezeichnung&  Formelzeichen& Größe& Bemerkung\\
+        \midrule
+         kleine Federkraft& $F_1$& $2581,856\,\mathrm{N}$& \\
+         großer Federweg& $F_2$& $4295,974\,\mathrm{N}$& \\
+        \midrule
+         Gesamtlänge unbelastet& $L_0$& $13,5\,\mathrm{mm}$& \\
+         Gesamtlänge nach $F_1$& $L_1$& $11,3\,\mathrm{mm}$& \\
+         Gesamtlänge nach $F_2$& $L_2$& $9,3\,\mathrm{mm}$& \\
+        \bottomrule
+    \end{tabular}
+    \label{KISSsoft Federn Ausgabe}
+\end{table}\\
+
+\noindent
+Aus Tab. (\ref{KISSsoft Federn Ausgabe}) geht hervor, dass 
+\begin{equation*}
+    F_1 > F_\mathrm{N}
+\end{equation*}
+und somit genug Anpresskraft für eine Bremsung vorhanden ist.
+
+\subsection{Hydraulik}
+Um die Bremse vollständig lüften zu können, muss die durch den hydraulischen Druck hervorgerufene Kraft $F_\mathrm{hyd}$ größer sein als die große Federkraft $F_2$. 
+Für die Druckkraft gilt nach \cite[S. 46, Gl. 3.10]{RM}:
+\begin{equation} \label{Fhyd}
+    F_\mathrm{hyd} = p_\mathrm{hyd} \cdot A_\mathrm{hyd}
+\end{equation}
+Für den minimal erforderlichen Druck folgt der Zusammenhang: 
+\begin{equation} \label{phyd}
+    p_\mathrm{hyd,min} \geq \frac{F_2}{A_\mathrm{hyd}}
+\end{equation}
+Die wirksame Druckfläche $A_\mathrm{hyd}$ der Hydraulikkammer ergibt sich aus der Geometrie des Ankers:
+\begin{equation}
+    A_\mathrm{hyd} = \pi \left( \left(\frac{D_\mathrm{Anker}}{2} \right)^2 - \left(\frac{d_\mathrm{Anker}}{2}\right)^2 \right)
+\end{equation}
+Die Geometrie des Ankers folgt aus der Modellierung in Solid Edge:
+\begin{table}[H]
+    \centering
+    \caption{Ankergeometrie}
+    \begin{tabular}{p{8cm}ccc}
+        \toprule
+        Bezeichnung&  Formelzeichen& Größe& Bemerkung\\
+        \midrule
+         großer Außendruchmesser& $D_\mathrm{Anker}$& $80\,\mathrm{mm}$& \\
+         kleiner Außendurchmesser& $d_\mathrm{Anker}$& $54\,\mathrm{mm}$& \\
+        \bottomrule
+    \end{tabular}
+    \label{Ankergeometrie}
+\end{table}\\
+
+\noindent
+Für die Druckfläche folgt demnach: 
+\begin{equation}
+    A_\mathrm{hyd} = 2736\,\mathrm{mm^2}
+\end{equation}
+
+\noindent
+Der minimale hydraulische Druck ist nach Gl. (\ref{phyd}):
+\begin{equation}
+    p_\mathrm{hyd,min} \geq 1,57\,\mathrm{\frac{N}{mm^2}} = 15,7\,\mathrm{bar}
+\end{equation}
+
+\noindent
+Es liegt also nah, einen tatsächlichen hydraulischen Druck von $p_\mathrm{hyd} = 16\,\mathrm{bar}$ zu wählen.
+Durch Einsetzen in Gl. (\ref{Fhyd}) ergibt sich die vorhandene Druckkraft:
+\begin{equation}
+    F_\mathrm{hyd,vorh} = 4378\,\mathrm{N}
+\end{equation}
+Somit ist also auch die Bedingung 
+\begin{equation*}
+    F_\mathrm{hyd,vorh} \geq F_2
+\end{equation*}
+erfüllt (vgl. Tab. (\ref{KISSsoft Federn Ausgabe})), und die Federn können vollständig vorgespannt werden. 
